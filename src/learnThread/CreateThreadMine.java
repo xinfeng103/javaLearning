@@ -1,17 +1,21 @@
 package learnThread;
 
+import java.util.concurrent.TimeUnit;
+
 public class CreateThreadMine {
     private static final String TEXT = "太阳在这个平静的小村庄缓缓升起，又是开始了平常的一天。我们故事的主人公睡眼惺忪的起来\n" +
             "......";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         // TODO 代码是被线程执行的，任何代码都可以通过Thread.currentThread()获取执行当前代码的线程
         System.out.println("程序开始，执行的线程名字叫做" + Thread.currentThread().getName());
 
-        for (int i=1; i<=2;i++){
+        for (int i=1; i<=1;i++){
             Thread thread = new Thread(new PrintStoryRunnable(TEXT,200*i),"我的线程-"+i);
+            thread.setDaemon(true);
             thread.start();
         }
+        Thread.sleep(TimeUnit.SECONDS.toMillis(1));
     }
 
     static class PrintStoryRunnable implements Runnable {
